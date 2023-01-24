@@ -9,4 +9,4 @@ git commit -m "$varname"
 git push origin main
 
 echo ""
-read -p "\nPress enter to continue."
+read -p "Press enter to continue."
