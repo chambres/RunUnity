@@ -7,3 +7,5 @@ git checkout -B main
 git add .
 git commit -m "$varname"
 git push origin main
+
+read -p "Press enter to continue"
