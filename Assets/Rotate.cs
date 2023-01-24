@@ -48,26 +48,44 @@ public class Rotate : MonoBehaviour
         }
     }
 
+    IEnumerator Wait(){
+        GameObject.Find("RIGHT").GetComponent<BoxCollider>().enabled = false;
+        GameObject.Find("LEFT").GetComponent<BoxCollider>().enabled = false;
+        yield return new WaitForSeconds(1f);
+        GameObject.Find("RIGHT").GetComponent<BoxCollider>().enabled = true;
+        GameObject.Find("LEFT").GetComponent<BoxCollider>().enabled = true;
+    }
+
     IEnumerator Rotatee(){
 
     
 
     startingRotation = this.transform.rotation;
-
-    Quaternion finalRotation = Quaternion.Euler( 0, 0, zRotation()) * startingRotation;
+    Debug.Log(zRotation());
+    Quaternion finalRotation = Quaternion.Euler( 0, 0, zRotation()); //* startingRotation;
+    Debug.Log(finalRotation);
     
     while(this.transform.rotation != finalRotation){
-        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, finalRotation, Time.deltaTime*15);
-
-
-        // if(Mathf.Abs(transform.rotation.z - finalRotation.z) < .01f){
-        //     Debug.Log("hi");
-        //     yield return new WaitForSeconds(1);
-        //     GameObject.Find("RIGHT").GetComponent<BoxCollider>().enabled = true;
-        //     GameObject.Find("LEFT").GetComponent<BoxCollider>().enabled = true;
-        // }
-        yield return 0;
+        
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, finalRotation, Time.deltaTime*10);
+        yield return new WaitForEndOfFrame ();
     }
+
+    }
+
+
+    IEnumerator Rotater(float time){
+        float elapsedTime = 0.0f;
+        Quaternion startingRotation = transform.rotation; // have a startingRotation as well
+        Quaternion targetRotation =  Quaternion.Euler ( new Vector3 ( 0.0f, 0.0f, zRotation() ) );
+        while (elapsedTime < time) {
+            elapsedTime += Time.deltaTime; // <- move elapsedTime increment here
+            //transform.localPosition = Vector3.Lerp (startingPosition, newLocalTarget, (elapsedTime / time)   );  
+            // Rotations
+            transform.rotation = Quaternion.Slerp(startingRotation, targetRotation,  (elapsedTime / time)  );
+            yield return new WaitForEndOfFrame ();
+        }
+        
 
     }
 
@@ -75,21 +93,23 @@ public class Rotate : MonoBehaviour
     public float rotationSpeed = 10f;
 
     public void turn(int dir){
-        switch(dir){
-            case 0:
-                //StartCoroutine(RotateMe(Vector3.forward * 90, timeToRotate));
-                //StopAllCoroutines();
-                StartCoroutine(Rotatee());
-                startingRotation = this.transform.rotation;
-                
-                Quaternion finalRotation = Quaternion.Euler( 0, 0, zRotation()) * startingRotation;
-                this.transform.rotation = finalRotation;
-                break;
-            case 1:
-                //StopAllCoroutines();
-                StartCoroutine(Rotatee());
-                break;
-        }
+        StartCoroutine(Wait());
+        Debug.Log(transform.rotation.z);
+        StartCoroutine(Rotater(.4f));
+
+
+
+        // switch(dir){
+        //     case 0:
+        //         //StartCoroutine(RotateMe(Vector3.forward * 90, timeToRotate));
+        //         //StopAllCoroutines();
+        //         //
+        //         break;
+        //     case 1:
+        //         //StopAllCoroutines();
+        //         //StartCoroutine(Rotatee());
+        //         break;
+        // }
     }
 
     void Update () {

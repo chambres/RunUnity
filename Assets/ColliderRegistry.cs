@@ -18,20 +18,7 @@ public class ColliderRegistry : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isPlayerhere = isPlayer();
         
-
-        timer -= Time.deltaTime;
-        if (GetComponent<BoxCollider>().enabled == false && timer <= 0)
-        {
-
-        }
-        if(GetComponent<BoxCollider>().enabled == false){
-            Debug.Log("disabled");
-            if(!isPlayerhere){
-                GetComponent<BoxCollider>().enabled = true;
-            }
-        }
     }
 
      

@@ -125,7 +125,7 @@ public class Controller : MonoBehaviour
             GameObject.Find("Main Camera").GetComponent<Rotate>().turn(1);
         }
         
-        other.gameObject.GetComponent<BoxCollider>().enabled = false;
+        //other.gameObject.GetComponent<BoxCollider>().enabled = false;
      }
 }
 
