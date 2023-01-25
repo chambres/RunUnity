@@ -112,6 +112,8 @@ public class Rotate : MonoBehaviour
         // }
     }
 
+    public bool running = true;
+
     void Update () {
         if(Input.GetKeyDown("e")){
             StartCoroutine(RotateMe(Vector3.forward * 90, timeToRotate));
@@ -119,6 +121,7 @@ public class Rotate : MonoBehaviour
         if(Input.GetKeyDown("q")){
             StartCoroutine(RotateMe(Vector3.forward * -90, timeToRotate));
         }
+
         
     }
 }

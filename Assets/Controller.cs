@@ -20,6 +20,20 @@ public class Controller : MonoBehaviour
 
     Rigidbody rb;
 
+    public GameObject resetText;
+    bool running = true;
+
+    bool IsGrounded(){
+        return Physics.Raycast(transform.position, -GameObject.Find("Main Camera").transform.up, .5f);
+    }
+
+    void OnDestroy()
+    {
+        GameObject.Find("Main Camera").GetComponent<Rotate>().running = false;
+        resetText.SetActive(true);
+    }
+
+
     Vector3 getNext(){
         switch(pointer){
             case 0:
@@ -82,13 +96,14 @@ public class Controller : MonoBehaviour
 
 public float jumpAmount = 1;
     void Update(){
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
     {
         rb.AddForce(GameObject.Find("Main Camera").transform.up * jumpAmount, ForceMode.Impulse);
     }
     }
 
     float moveSpeed = 10f;
+
 
 
 
