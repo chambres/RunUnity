@@ -57,6 +57,10 @@ public class Controller : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision other) {
+        Debug.Log(other.gameObject.name);
+    }
+
     void force(float dir){
         rb.AddForce(GameObject.Find("Main Camera").transform.right * dir, ForceMode.Impulse);
         Debug.Log(GameObject.Find("Main Camera").transform.right);
@@ -76,8 +80,13 @@ public class Controller : MonoBehaviour
     }    
 
 
-
-
+public float jumpAmount = 1;
+    void Update(){
+        if (Input.GetKeyDown(KeyCode.Space))
+    {
+        rb.AddForce(GameObject.Find("Main Camera").transform.up * jumpAmount, ForceMode.Impulse);
+    }
+    }
 
     float moveSpeed = 10f;
 
@@ -115,7 +124,7 @@ public class Controller : MonoBehaviour
 
      }
 
-     private void OnCollisionEnter(Collision other) {
+     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.name == "LEFT"){
             Physics.gravity = getPrev();
             GameObject.Find("Main Camera").GetComponent<Rotate>().turn(0);
@@ -124,8 +133,6 @@ public class Controller : MonoBehaviour
             Physics.gravity = getNext();
             GameObject.Find("Main Camera").GetComponent<Rotate>().turn(1);
         }
-        
-        //other.gameObject.GetComponent<BoxCollider>().enabled = false;
      }
 }
 

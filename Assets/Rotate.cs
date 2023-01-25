@@ -95,7 +95,7 @@ public class Rotate : MonoBehaviour
     public void turn(int dir){
         StartCoroutine(Wait());
         Debug.Log(transform.rotation.z);
-        StartCoroutine(Rotater(.4f));
+        StartCoroutine(Rotater(.2f));
 
 
 
