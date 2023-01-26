@@ -21,6 +21,7 @@ public class Controller : MonoBehaviour
     Rigidbody rb;
 
     public GameObject resetText;
+    public GameObject timeText;
     bool running = true;
 
     bool IsGrounded(){
@@ -30,6 +31,7 @@ public class Controller : MonoBehaviour
     void OnDestroy()
     {
         GameObject.Find("Main Camera").GetComponent<Rotate>().running = false;
+        Physics.gravity = downG;
         resetText.SetActive(true);
     }
 
@@ -71,9 +73,7 @@ public class Controller : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision other) {
-        Debug.Log(other.gameObject.name);
-    }
+
 
     void force(float dir){
         rb.AddForce(GameObject.Find("Main Camera").transform.right * dir, ForceMode.Impulse);
@@ -87,10 +87,7 @@ public class Controller : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         list = new List<Vector3> { downG, rightG, upG, leftG };
-        Direction myDirection;
-        myDirection = Direction.North;
-
-        force(-1f);
+        resetText.SetActive(false);
     }    
 
 
@@ -100,9 +97,9 @@ public float jumpAmount = 1;
     {
         rb.AddForce(GameObject.Find("Main Camera").transform.up * jumpAmount, ForceMode.Impulse);
     }
-    }
 
-    float moveSpeed = 10f;
+    timeText.GetComponent<UnityEngine.UI.Text>().text = "Time: " + Mathf.RoundToInt(Time.timeSinceLevelLoad) + "s";
+    }
 
 
 

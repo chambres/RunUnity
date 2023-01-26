@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rotate : MonoBehaviour
 {
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +56,7 @@ public class Rotate : MonoBehaviour
     IEnumerator Wait(){
         GameObject.Find("RIGHT").GetComponent<BoxCollider>().enabled = false;
         GameObject.Find("LEFT").GetComponent<BoxCollider>().enabled = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.3f);
         GameObject.Find("RIGHT").GetComponent<BoxCollider>().enabled = true;
         GameObject.Find("LEFT").GetComponent<BoxCollider>().enabled = true;
     }
@@ -120,6 +125,11 @@ public class Rotate : MonoBehaviour
         }
         if(Input.GetKeyDown("q")){
             StartCoroutine(RotateMe(Vector3.forward * -90, timeToRotate));
+        }
+        if(Input.GetKeyDown("r") && !running){
+            //reload scene with scene manager
+            Vars.chance = .9f;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         

@@ -11,16 +11,21 @@ public class BoxConstructor : MonoBehaviour
     public GameObject plane3;
     public GameObject plane4;
 
+    float speed = 10f;
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
+        
         plane1 = transform.GetChild(0).gameObject;
         plane2 = transform.GetChild(1).gameObject;
         plane3 = transform.GetChild(2).gameObject;
         plane4 = transform.GetChild(3).gameObject;
 
         float randValue = Random.value;
-        if(randValue < .9)
+        if(randValue < Vars.chance)
         {
             Destroy(plane1.transform.GetChild(Random.Range(0, 9)).gameObject);
             Destroy(plane2.transform.GetChild(Random.Range(0, 9)).gameObject);
@@ -31,14 +36,9 @@ public class BoxConstructor : MonoBehaviour
         {
             deleteEntireSquare();
         }
-
-        
-
-
-
-
-
     }
+
+
 
     void deleteEntireSquare()
     {
@@ -63,7 +63,7 @@ public class BoxConstructor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Translate(-Vector3.forward * Time.deltaTime * speed);
     }
 }
 

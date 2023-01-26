@@ -13,6 +13,7 @@ public class Spawner : MonoBehaviour
 
     public float speed;
     public bool running=true;
+    public int i = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -25,15 +26,21 @@ public class Spawner : MonoBehaviour
     {
         while(running){
             Spawn();
-            Debug.Log("ran");
-            yield return new WaitForSeconds(time(speed));
+            yield return new WaitForSeconds(1);
         }
 
     }
 
     void Spawn(){
         GameObject spawnedBox = (GameObject)Instantiate(box, new Vector3(0, 0, 50) , Quaternion.Euler(0, 0, 0));
-        spawnedBox.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -speed);
+        ///Debug.Break();
+        //spawnedBox.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, -10f);
+        i++;
+        if(i == 2){
+            //change scale of spawnedBox.
+            spawnedBox.transform.localScale = new Vector3(1, 1, 1.1f);
+            //spawnedBox.transform.position = new Vector3(0, 0, 0);
+        }
 
     }
 
