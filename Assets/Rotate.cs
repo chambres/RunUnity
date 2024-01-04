@@ -95,7 +95,7 @@ public class Rotate : MonoBehaviour
     }
 
     float timeToRotate = 0.3f;
-    public float rotationSpeed = 10f;
+    public float rotationSpeed = 5f;
 
     public void turn(int dir){
         StartCoroutine(Wait());
@@ -120,12 +120,7 @@ public class Rotate : MonoBehaviour
     public bool running = true;
 
     void Update () {
-        if(Input.GetKeyDown("e")){
-            StartCoroutine(RotateMe(Vector3.forward * 90, timeToRotate));
-        }
-        if(Input.GetKeyDown("q")){
-            StartCoroutine(RotateMe(Vector3.forward * -90, timeToRotate));
-        }
+
         if(Input.GetKeyDown("r") && !running){
             //reload scene with scene manager
             Vars.chance = .9f;

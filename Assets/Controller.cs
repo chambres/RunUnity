@@ -136,14 +136,23 @@ public float jumpAmount = 1;
 
      }
 
+     private void perpendicular(int sign){ //sign is 1 or -1
+        Vector3 currentGravity = Physics.gravity;
+        Vector3 perpendicular = Vector3.Cross(currentGravity, Vector3.forward);
+        perpendicular.Normalize();
+        GetComponent<Rigidbody>().AddForce(sign * perpendicular * 5f, ForceMode.Impulse);
+     }
+
      private void OnTriggerEnter(Collider other) {
         if(other.gameObject.name == "LEFT"){
             Physics.gravity = getPrev();
             GameObject.Find("Main Camera").GetComponent<Rotate>().turn(0);
+            perpendicular(1);   
         }
         if(other.gameObject.name == "RIGHT"){            
             Physics.gravity = getNext();
             GameObject.Find("Main Camera").GetComponent<Rotate>().turn(1);
+            perpendicular(-1);
         }
      }
 }
